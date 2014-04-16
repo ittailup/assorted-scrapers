@@ -13,5 +13,8 @@ scrapers, mostly ruby and python
 
 # python
 
-# startups
+## startups
 - scrapy project, around 15 scrapers to count jobs in various startups across canada (a few reusable)
+
+## xml adzuna spec
+- a scrapy XMLFeedSpider project based around scraping feeds using the logic underlying the adzuna spec
