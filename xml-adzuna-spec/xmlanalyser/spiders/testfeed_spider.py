@@ -19,7 +19,7 @@ class TestFeedSpider(XMLFeedSpider):
     start_urls = ["file:///Users/predius/adzuna.xml.1"]
                   
     #namespaces = [ ('sm', 'http://agora.com.pl/common/JobATO/domain'),]
-    iterator = 'xml' # This is actually unnecessary, since it's the default value
+    iterator = 'xml'
     itertag = 'ad'
     
     
@@ -55,7 +55,6 @@ class TestFeedSpider(XMLFeedSpider):
     def parse_node(self, response, node):
         log.msg('Hi, this is a <%s> node!: %s' % (self.itertag, ''.join(node.xpath('JobTitle/text()').extract())))
         #country = ''.join(node.xpath('country/text()').extract())
-        #log.msg(country)
         item = JobListing()
         # set the xml values from the dictionary we give it
         for key in self.elements:
@@ -74,16 +73,16 @@ class TestFeedSpider(XMLFeedSpider):
         
     def count_dupes(spider, reason):
         dupes = 0
-        #for index in spider.index_counter:
-           # dupes = dupes + spider.index_counter[str(index)]
-        #log.msg("What")
+        for index in spider.index_counter:
+            dupes = dupes + spider.index_counter[str(index)]
         return dupes
             
         
     def spider_closed(spider, reason):
         spider.stats.set_value('count', spider.count)
         #print spider.index_counter
-        #dupes = spider.count_dupes(spider)
+        dupecount = spider.count_dupes(spider)
+        spider.stats.set_value('dupes', dupecount)
                    
     
     def check_dupes(self, node, item):
@@ -108,7 +107,6 @@ class TestFeedSpider(XMLFeedSpider):
         #hashstring = "".join(map(str, [item.values()]))
         log.msg(string)
         hashstring = string[:100]
-        log.msg("WHATTTTTTTT")
         index = hash(string)     
         return index
         
